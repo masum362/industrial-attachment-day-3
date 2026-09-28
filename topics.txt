@@ -1,0 +1,211 @@
+7. Scope & Execution
+
+এখান থেকে JavaScript একটু গভীরে যাবে।
+Global scope
+function first() {
+  second();
+}
+function second() {
+  console.log("Inside second");
+}
+first();
+Global Scope
+Function scope
+Block scope
+Lexical scope
+Scope chain
+Hoisting
+Temporal Dead Zone
+Execution context
+Call stack
+
+Practice Tasks
+Task 1: Hoisting & TDZ
+
+console.log(msg);
+
+var msg = "JavaScript";
+
+test();
+
+function test() {
+  console.log("Running test...");
+}
+
+testExpression();
+
+var testExpression = function() {
+  console.log("Running expression...");
+};
+
+প্রশ্ন: এই কোডটি রান করলে কনসোলে কী ঘটবে বা কোথায় এরর আসবে?
+
+Task 2: Block Scope vs var in Loops
+for (var i = 0; i < 3; i++) {
+  // কিছু নেই
+}
+console.log("var i:", i);
+
+for (let j = 0; j < 3; j++) {
+  // কিছু নেই
+}
+console.log("let j:", j);
+প্রশ্ন: দুটি console.log-এ কী কী মান বা এরর আসবে?
+
+Task 3: Scope Chain & Shadowing
+let count = 100;
+
+function parent() {
+  let count = 50;
+
+  function child() {
+    console.log(count);
+  }
+
+  child();
+}
+
+parent();
+console.log(count);
+প্রশ্ন: কনসোলে ক্রমানুসারে কোন দুটি সংখ্যা প্রিন্ট হবে?
+
+8. this Keyword
+this কী?
+Global this
+Object-এর ভিতরে this
+Function-এর ভিতরে this
+Arrow function-এর this
+call()
+apply()
+bind()
+const user1 = { name: "Tanvir" };
+const user2 = { name: "Anis" };
+
+function introduce(city, role) {
+  console.log(`${this.name} lives in ${city} and works as ${role}.`);
+}
+
+// ১. call()
+introduce.call(user1, "Dhaka", "Frontend Dev");
+// আউটপুট: Tanvir lives in Dhaka and works as Frontend Dev.
+
+// ২. apply()
+introduce.apply(user2, ["Chittagong", "Backend Dev"]);
+// আউটপুট: Anis lives in Chittagong and works as Backend Dev.
+
+// ৩. bind()
+const introTanvir = introduce.bind(user1, "Dhaka", "Engineer");
+introTanvir(); 
+// আউটপুট: Tanvir lives in Dhaka and works as Engineer.
+
+Step 8 Practice Task:
+
+const player = {
+  title: "Striker",
+  skills: ["Running", "Shooting"],
+  showSkills() {
+    this.skills.forEach(skill => {
+      console.log(`${this.title} can do ${skill}`);
+    });
+  }
+};
+
+player.showSkills();
+
+const detachedShow = player.showSkills; // bind use kora lagbe akhane
+// detachedShow(); // এটি চালালে কি একই আউটপুট দেবে?
+
+9. Closures ⭐
+Closure কী?
+ফাংশনের ভেতর ফাংশন থাকবে, 
+বাইরের ফাংশন শেষ হয়ে গেলেও ভেতরের ফাংশন তার প্যারেন্টের ভ্যারিয়েবলগুলোকে 
+মেমরিতে সাথে করে নিয়ে ঘুরে বেড়াতে পারবে — এটাই Closure।
+Private variables
+function createBankAccount(initialBalance) {
+  let balance = initialBalance; // প্রাইভেট ভ্যারিয়েবল, বাইরে থেকে এক্সেসযোগ্য নয়
+
+  return {
+    deposit(amount) {
+      if (amount > 0) balance += amount;
+      return `Current Balance: $${balance}`;
+    },
+    withdraw(amount) {
+      if (amount <= balance) {
+        balance -= amount;
+        return `Current Balance: $${balance}`;
+      }
+      return "Insufficient funds!";
+    },
+    getBalance() {
+      return balance;
+    }
+  };
+}
+
+const account = createBankAccount(100);
+
+console.log(account.deposit(50));   // "Current Balance: $150"
+console.log(account.balance);       // undefined (সরাসরি এক্সেস করা অসম্ভব!)
+console.log(account.getBalance());  // 150
+Practical use cases
+function multiplyBy(factor) {
+  return function(number) {
+    return number * factor;
+  };
+}
+
+const double = multiplyBy(2);
+const triple = multiplyBy(3);
+
+console.log(double(10)); // 20
+console.log(triple(10)); // 30
+
+// // // //
+
+function memoizedSquare() {
+  const cache = {}; // ক্লোজারের মাধ্যমে বেঁচে থাকবে
+
+  return function(n) {
+    if (n in cache) {
+      console.log("Fetching from cache...");
+      return cache[n];
+    }
+    console.log("Calculating...");
+    const result = n * n;
+    cache[n] = result;
+    return result;
+  };
+}
+
+const square = memoizedSquare();
+console.log(square(5)); // Calculating... -> 25
+console.log(square(5)); // Fetching from cache... -> 25
+
+10. DOM ⭐
+Frontend development-এর জন্য খুব গুরুত্বপূর্ণ।
+DOM কী?
+Selecting elements
+getElementById
+querySelector
+querySelectorAll
+Changing text
+Changing HTML
+Changing styles
+Creating elements
+Removing elements
+Classes
+Attributes
+
+11. Events
+Click
+Input
+Submit
+Change
+Keyboard events
+Mouse events
+Event object
+Event bubbling
+Event capturing
+Event delegation
+preventDefault()
+stopPropagation()
