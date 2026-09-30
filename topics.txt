@@ -147,6 +147,9 @@ const account = createBankAccount(100);
 console.log(account.deposit(50));   // "Current Balance: $150"
 console.log(account.balance);       // undefined (সরাসরি এক্সেস করা অসম্ভব!)
 console.log(account.getBalance());  // 150
+
+
+
 Practical use cases
 function multiplyBy(factor) {
   return function(number) {
@@ -180,32 +183,3 @@ function memoizedSquare() {
 const square = memoizedSquare();
 console.log(square(5)); // Calculating... -> 25
 console.log(square(5)); // Fetching from cache... -> 25
-
-10. DOM ⭐
-Frontend development-এর জন্য খুব গুরুত্বপূর্ণ।
-DOM কী?
-Selecting elements
-getElementById
-querySelector
-querySelectorAll
-Changing text
-Changing HTML
-Changing styles
-Creating elements
-Removing elements
-Classes
-Attributes
-
-11. Events
-Click
-Input
-Submit
-Change
-Keyboard events
-Mouse events
-Event object
-Event bubbling
-Event capturing
-Event delegation
-preventDefault()
-stopPropagation()

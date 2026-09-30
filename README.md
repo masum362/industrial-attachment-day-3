@@ -1,9 +1,10 @@
-# 🚀 JavaScript Advanced Practice Tasks
+# 🚀 JavaScript Advanced Mixed Practice Tasks
 
-এই practice set-এ JavaScript-এর নিচের topics একসাথে practice করতে হবে:
+এই practice set-এ নিচের conceptsগুলো practically ব্যবহার করতে হবে:
 
 * Scope
 * Scope Chain
+* Shadowing
 * Hoisting
 * TDZ
 * Execution Context
@@ -13,497 +14,254 @@
 * `apply()`
 * `bind()`
 * Closure
-* DOM
-* Events
-* Event Object
-* Event Bubbling
-* Event Delegation
-* `preventDefault()`
-* `stopPropagation()`
-
----
-
-# 📚 Topics Covered
-
-## 1. Scope
-
-Practice করতে হবে:
-
-* Global Scope
-* Function Scope
-* Block Scope
-* Lexical Scope
-* Scope Chain
-* Shadowing
-* Hoisting
-* Temporal Dead Zone
-* Execution Context
-* Call Stack
-
----
-
-## 2. `this` Keyword
-
-Practice করতে হবে:
-
-* Global `this`
-* Object-এর ভিতরে `this`
-* Function-এর ভিতরে `this`
-* Arrow Function-এর `this`
-* `call()`
-* `apply()`
-* `bind()`
-
----
-
-## 3. Closure
-
-Practice করতে হবে:
-
-* Closure কীভাবে কাজ করে
 * Private Variables
-* Function returning Function
-* Data privacy
-* Practical Closure
+* Higher-Order Functions
+
+> **Rule:** প্রতিটি task করার আগে output/behaviour নিজে predict করবে। তারপর code run করে result verify করবে।
 
 ---
 
-## 4. DOM
+# 🟢 Task 1 — Scope, Hoisting & Execution Order
 
-Practice করতে হবে:
-
-* `getElementById()`
-* `querySelector()`
-* `querySelectorAll()`
-* `textContent`
-* `innerHTML`
-* `style`
-* `classList`
-* `createElement()`
-* `appendChild()`
-* `remove()`
-* Attributes
-
----
-
-## 5. Events
-
-Practice করতে হবে:
-
-* `click`
-* `input`
-* `submit`
-* `change`
-* Keyboard Events
-* Mouse Events
-* Event Object
-* Event Bubbling
-* Event Capturing
-* Event Delegation
-* `preventDefault()`
-* `stopPropagation()`
-
----
-
-# 🟢 Task 1 — Student Profile
-
-একটি Student Profile তৈরি করো।
-
-### Student Data
+নিচের code analyze করো:
 
 ```js
-const student = {
-  name: "Rahim",
-  age: 22,
-  course: "Web Development",
-  skills: ["HTML", "CSS", "JavaScript"]
-};
-```
+console.log(message);
 
-### Requirements
+var message = "JavaScript";
 
-Page-এ দেখাতে হবে:
+function first() {
+  console.log("First");
 
-* Student Name
-* Age
-* Course
-* Skills
+  second();
 
-### Must Use
-
-* Object
-* Array
-* `querySelector()`
-* `textContent`
-* `innerHTML`
-* `forEach()`
-
-### Bonus
-
-একটি **Show Skills** button তৈরি করো।
-
-Button click করলে skills dynamically page-এ দেখাবে।
-
----
-
-# 🟢 Task 2 — Counter with Closure
-
-একটি Counter App তৈরি করো।
-
-```text
-Counter: 0
-
-[ + ] [ - ] [ Reset ]
-```
-
-### Requirements
-
-Counter-এর value একটি private variable হিসেবে রাখতে হবে।
-
-Example:
-
-```js
-function createCounter() {
-  let count = 0;
-
-  return {
-    increment() {
-      // code
-    },
-
-    decrement() {
-      // code
-    },
-
-    reset() {
-      // code
-    },
-
-    getValue() {
-      // code
-    }
-  };
+  console.log("First End");
 }
+
+function second() {
+  console.log("Second");
+}
+
+first();
+
+console.log(message);
 ```
 
-### Must Use
+### তোমার কাজ
 
-* Closure
-* Private Variable
-* DOM
-* Click Event
-* `textContent`
+1. Code-এর সম্পূর্ণ output ক্রমানুসারে লিখো।
+2. `var message` কেন প্রথমে error না দিয়ে `undefined` দেয়?
+3. `first()` এবং `second()` কীভাবে Call Stack-এ প্রবেশ ও বের হয় তা explain করো।
+4. Function Declaration কীভাবে hoist হয় তা explain করো।
 
-### Important
+### Extra Challenge
 
-নিচের মতো সরাসরি counter value access করা যাবে না:
+নিচের code-এর behaviour predict করো:
 
 ```js
-counter.count
+console.log(name);
+
+let name = "Rahim";
 ```
+
+**প্রশ্ন:** এখানে `undefined` না এসে error কেন হবে?
 
 ---
 
-# 🟡 Task 3 — Student Registration Form
+# 🟡 Task 2 — Scope Chain & Shadowing
 
-একটি Student Registration Form তৈরি করো।
+একটি nested function structure তৈরি করো যেখানে Global, Parent এবং Child scope থাকবে।
 
-```text
-Name:   [____________]
+### Requirements
 
-Email:  [____________]
-
-Age:    [____________]
-
-Course: [ JavaScript ▼ ]
-
-        [ Register ]
-```
-
-### Submit করার পরে
-
-Successful registration হলে দেখাবে:
-
-```text
-Registration Successful!
-
-Name: Rahim
-Email: rahim@gmail.com
-Age: 22
-Course: JavaScript
-```
-
-### Validation
-
-Name empty হলে:
-
-```text
-Name is required
-```
-
-Email empty হলে:
-
-```text
-Email is required
-```
-
-Age 18-এর কম হলে:
-
-```text
-Age must be 18 or above
-```
-
-### Must Use
-
-* `submit`
-* `preventDefault()`
-* Event Object
-* `input.value`
-* DOM Manipulation
-
----
-
-# 🟡 Task 4 — Scope & Shadowing
-
-নিচের code-এর output আগে অনুমান করো।
+নিচের structure অনুসরণ করো:
 
 ```js
-let name = "Global";
+let username = "Global User";
 
 function parent() {
-  let name = "Parent";
+  let username = "Parent User";
 
   function child() {
-    let name = "Child";
+    let username = "Child User";
 
-    console.log(name);
+    console.log(username);
   }
 
   child();
 
-  console.log(name);
+  console.log(username);
 }
 
 parent();
 
-console.log(name);
+console.log(username);
 ```
 
-### Questions
+### তোমার কাজ
 
-1. প্রথমে কী print হবে?
-2. দ্বিতীয় কী print হবে?
-3. তৃতীয় কী print হবে?
-4. কোন scope থেকে কোন `name` পাওয়া যাচ্ছে?
-5. এখানে Scope Chain কীভাবে কাজ করছে?
+1. Output predict করো।
+2. কোন `username` কোন scope থেকে এসেছে তা identify করো।
+3. কোন variable কোথায় shadow হয়েছে তা explain করো।
+4. `child()` যদি নিজের `username` না রাখে তাহলে কোন value পাওয়া যাবে?
+5. `parent()`-এর `username`-ও সরিয়ে দিলে কী হবে?
+
+### Goal
+
+এই task-এর মাধ্যমে **Lexical Scope + Scope Chain + Shadowing** পরিষ্কারভাবে বুঝতে হবে।
 
 ---
 
-# 🟡 Task 5 — `this` Keyword
+# 🟠 Task 3 — `this`, `call()`, `apply()` & `bind()`
 
-নিচের code-এর output আগে অনুমান করো।
+একটি employee profile system তৈরি করো।
+
+### Given Data
 
 ```js
-const user = {
+const employee1 = {
   name: "Rahim",
-
-  normalFunction() {
-    console.log(this.name);
-  },
-
-  arrowFunction: () => {
-    console.log(this.name);
-  }
-};
-
-user.normalFunction();
-user.arrowFunction();
-```
-
-### Questions
-
-1. `normalFunction()` কী print করবে?
-2. `arrowFunction()` কী print করবে?
-3. কেন দুইটির result আলাদা হতে পারে?
-4. Arrow Function-এর `this` কোথা থেকে আসে?
-
-### Bonus
-
-`arrowFunction` এমনভাবে পরিবর্তন করো যাতে:
-
-```text
-Rahim
-```
-
-print হয়।
-
----
-
-# 🟡 Task 6 — `bind()` Practice
-
-নিচের code complete করো:
-
-```js
-const user = {
-  name: "Masum",
   role: "Frontend Developer"
 };
 
-function showProfile() {
-  console.log(`${this.name} is a ${this.role}`);
-}
-
-const profile = __________;
-
-profile();
-```
-
-### Expected Output
-
-```text
-Masum is a Frontend Developer
-```
-
-### Requirement
-
-`bind()` ব্যবহার করতে হবে।
-
-### Bonus
-
-একই function ব্যবহার করে দুইজনের profile print করো।
-
-```js
-const user1 = {
-  name: "Rahim",
+const employee2 = {
+  name: "Karim",
   role: "Backend Developer"
 };
 
-const user2 = {
-  name: "Karim",
-  role: "Frontend Developer"
-};
+function introduce(company, city) {
+  console.log(
+    `${this.name} is a ${this.role} at ${company} in ${city}.`
+  );
+}
 ```
 
----
+### তোমার কাজ
 
-# 🟠 Task 7 — Product Cart
+#### 1. Normal Method
 
-একটি simple Product Cart তৈরি করো।
+একটি object method তৈরি করে `this` ব্যবহার করে নিজের information print করো।
 
-### Product Data
+#### 2. `call()`
 
-```js
-const products = [
-  {
-    id: 1,
-    name: "Keyboard",
-    price: 1200
-  },
-  {
-    id: 2,
-    name: "Mouse",
-    price: 800
-  },
-  {
-    id: 3,
-    name: "Monitor",
-    price: 15000
-  }
-];
-```
-
-### UI
+`employee1`-এর information print করো:
 
 ```text
-Products
-
-Keyboard     ৳1200     [Add]
-Mouse         ৳800     [Add]
-Monitor     ৳15000     [Add]
-
-
-Cart
-
-Keyboard       ৳1200
-Mouse            ৳800
-
-Total: ৳2000
+Rahim is a Frontend Developer at Mastrus IT in Moulvibazar.
 ```
 
-### Requirements
+#### 3. `apply()`
 
-* Product dynamically render করতে হবে।
-* Add button click করলে cart-এ product যোগ হবে।
-* Total automatically update হবে।
+`employee2`-এর information print করো।
 
-### Must Use
+Arguments অবশ্যই array হিসেবে দিতে হবে।
 
-* Array
-* Object
-* `forEach()`
-* DOM
-* Click Event
-* Event Object
-* Functions
+#### 4. `bind()`
 
-### Bonus
-
-একই product একাধিকবার add করলে নতুন item তৈরি না করে quantity increase করো।
-
----
-
-# 🔴 Task 8 — Private Shopping Cart with Closure
-
-Task 7-এর Cart system-কে Closure ব্যবহার করে আরও advanced করো।
+`employee1`-এর জন্য একটি নতুন function তৈরি করো:
 
 ```js
-function createCart() {
-  let cart = [];
-
-  return {
-    addProduct(product) {
-      // code
-    },
-
-    removeProduct(id) {
-      // code
-    },
-
-    getCart() {
-      // code
-    },
-
-    getTotal() {
-      // code
-    }
-  };
-}
+const rahimProfile = ...
 ```
 
 তারপর:
 
 ```js
-const cart = createCart();
+rahimProfile();
+```
+
+দিলে employee1-এর information print হবে।
+
+### Bonus Challenge
+
+```js
+const showProfile = employee1.introduce;
+```
+
+এরপর:
+
+```js
+showProfile();
+```
+
+কেন expected result নাও দিতে পারে তা explain করো।
+
+তারপর `bind()` দিয়ে problem solve করো।
+
+---
+
+# 🔴 Task 4 — Private Bank Account with Closure
+
+একটি ছোট Bank Account system তৈরি করো যেখানে balance বাইরে থেকে directly access করা যাবে না।
+
+### Starter Code
+
+```js
+function createBankAccount(accountHolder, initialBalance) {
+  let balance = initialBalance;
+
+  return {
+    deposit(amount) {
+      // code
+    },
+
+    withdraw(amount) {
+      // code
+    },
+
+    getBalance() {
+      // code
+    },
+
+    getAccountInfo() {
+      // code
+    }
+  };
+}
+```
+
+### Requirements
+
+একটি account তৈরি করো:
+
+```js
+const account = createBankAccount("Rahim", 10000);
 ```
 
 ### Methods
 
 ```js
-cart.addProduct(product);
+account.deposit(2000);
 
-cart.removeProduct(2);
+account.withdraw(3000);
 
-cart.getCart();
+console.log(account.getBalance());
 
-cart.getTotal();
+console.log(account.getAccountInfo());
 ```
 
-### Important
+### Rules
+
+#### Deposit
+
+Amount `0` বা তার কম হলে deposit করা যাবে না।
+
+#### Withdraw
+
+Balance-এর চেয়ে বেশি টাকা withdraw করা যাবে না।
+
+Output:
+
+```text
+Insufficient balance!
+```
+
+#### Privacy
 
 নিচের code:
 
 ```js
-cart.cart
+console.log(account.balance);
 ```
 
 এর result হতে হবে:
@@ -512,287 +270,71 @@ cart.cart
 undefined
 ```
 
-কারণ `cart` হবে private variable।
+### Bonus Challenge
 
-### Must Use
-
-* Closure
-* Private Data
-* Object Methods
-* Array
-* DOM
-* Events
-
----
-
-# 🔴 Task 9 — Todo App
-
-একটি complete Todo Application তৈরি করো।
-
-### UI
-
-```text
-Todo App
-
-[ Learn JavaScript        ] [Add]
-
---------------------------------
-
-☐ Learn JavaScript    [Delete]
-
-☑ Practice DOM        [Delete]
-
-☐ Learn React         [Delete]
-
---------------------------------
-
-Total: 3
-Completed: 1
-```
-
-### Features
-
-#### 1. Add Todo
-
-Input থেকে Todo add হবে।
-
-#### 2. Delete Todo
-
-Delete button click করলে Todo remove হবে।
-
-#### 3. Complete Todo
-
-Todo click করলে completed state পরিবর্তন হবে।
-
-#### 4. Counter
-
-Automatically update হবে:
-
-```text
-Total: 3
-Completed: 1
-```
-
-### Must Use
-
-* DOM
-* `createElement()`
-* `appendChild()`
-* `remove()`
-* Events
-* `classList`
-* `textContent`
-* Array
-
----
-
-# 🔴 Task 10 — Event Delegation
-
-Task 9-এর Todo App-এ প্রতিটি button-এর জন্য আলাদা event listener ব্যবহার করা যাবে না।
-
-Parent container-এ একটি মাত্র event listener ব্যবহার করতে হবে।
-
-```html
-<div id="todoList">
-  <!-- todos -->
-</div>
-```
-
-Example Todo:
-
-```html
-<div class="todo">
-  <span>Learn JavaScript</span>
-
-  <button class="complete">Complete</button>
-  <button class="delete">Delete</button>
-</div>
-```
-
-Parent event listener:
+দুটি account তৈরি করো:
 
 ```js
-todoList.addEventListener("click", (event) => {
-  // code
-});
+const account1 = createBankAccount("Rahim", 10000);
+
+const account2 = createBankAccount("Karim", 5000);
 ```
 
-### Requirements
+একটির balance পরিবর্তন করলে অন্যটির balance পরিবর্তন হবে না।
 
-একটি event listener ব্যবহার করে:
+### Goal
 
-* Complete
-* Delete
+এই task-এ বুঝতে হবে:
 
-দুটো functionality implement করতে হবে।
-
-### Must Understand
-
-* Event Bubbling
-* `event.target`
-* Event Delegation
+**Closure কীভাবে private data তৈরি করে এবং প্রতিটি function call কীভাবে নিজের আলাদা lexical environment ধরে রাখে।**
 
 ---
 
-# 🔥 Final Project — Student Management System
+# 🔥 Task 5 — Discount Calculator using Closure + `this`
 
-এটি এই chapter-এর **Final Practice Project**।
+এটি একটি real-world style challenge।
 
-একটি complete Student Management System তৈরি করতে হবে।
+একটি **Product Pricing System** তৈরি করো।
 
----
-
-## 🎯 UI
-
-```text
-        Student Management System
-
-Name:
-[________________________]
-
-Age:
-[________________________]
-
-Course:
-[ JavaScript ▼ ]
-
-[ Add Student ]
-
-
---------------------------------------------
-
-Students
-
-Name       Age       Course          Action
-
-Rahim      22        JavaScript      Delete
-Karim      24        React           Delete
-Hasan      21        Node.js         Delete
-
---------------------------------------------
-
-Total Students: 3
-```
-
----
-
-# Features
-
-## 1. Add Student
-
-Form submit করলে নতুন student add হবে।
-
----
-
-## 2. Validation
-
-নিচের validation থাকতে হবে:
-
-* Name required
-* Age required
-* Age must be 18 or above
-* Course required
-
----
-
-## 3. Delete Student
-
-Delete button click করলে student remove হবে।
-
----
-
-## 4. Search Student
-
-একটি search input তৈরি করো:
-
-```text
-Search Student: [________________]
-```
-
-Student-এর name দিয়ে search করতে হবে।
-
-Example:
-
-```text
-Search: Rahim
-```
-
-তাহলে শুধু Rahim-এর information দেখাবে।
-
----
-
-## 5. Total Students
-
-Automatically update হবে:
-
-```text
-Total Students: 3
-```
-
----
-
-## 6. Empty State
-
-কোনো student না থাকলে দেখাবে:
-
-```text
-No students found.
-```
-
----
-
-# ⭐ Final Project — Mandatory Concepts
-
-Final project-এ নিচের concepts ব্যবহার করতে হবে:
-
-| Concept            | Requirement        |
-| ------------------ | ------------------ |
-| Global Scope       | Main application   |
-| Function Scope     | Functions          |
-| Block Scope        | `let` / `const`    |
-| Scope Chain        | Nested functions   |
-| `this`             | Object Methods     |
-| `bind()`           | Detached Function  |
-| Closure            | Private Data       |
-| DOM                | UI Manipulation    |
-| `submit`           | Form               |
-| `click`            | Buttons            |
-| `input`            | Search             |
-| Event Object       | Identify target    |
-| Event Delegation   | Student actions    |
-| `preventDefault()` | Form submission    |
-| `classList`        | UI State           |
-| `createElement()`  | Dynamic UI         |
-| `appendChild()`    | Add elements       |
-| `remove()`         | Delete elements    |
-| Array Methods      | Student Management |
-
----
-
-# ⭐ Advanced Challenge — Private Student Manager
-
-Final project-এর data একটি Closure-এর মধ্যে রাখতে হবে।
+### Product
 
 ```js
-function createStudentManager() {
-  let students = [];
+const product = {
+  name: "Laptop",
+  price: 60000,
+  discount: 10,
 
-  return {
-    addStudent(student) {
-      // code
-    },
+  getFinalPrice() {
+    // code
+  }
+};
+```
 
-    deleteStudent(id) {
-      // code
-    },
+`getFinalPrice()` এমনভাবে তৈরি করো যাতে `this.price` এবং `this.discount` ব্যবহার করে final price বের হয়।
 
-    searchStudent(keyword) {
-      // code
-    },
+---
 
-    getStudents() {
-      // code
-    }
+## Part 1 — `this`
+
+Expected:
+
+```text
+Product: Laptop
+Original Price: 60000
+Discount: 10%
+Final Price: 54000
+```
+
+---
+
+## Part 2 — Discount Factory
+
+একটি function তৈরি করো:
+
+```js
+function createDiscountCalculator(discount) {
+  return function(price) {
+    // code
   };
 }
 ```
@@ -800,65 +342,100 @@ function createStudentManager() {
 তারপর:
 
 ```js
-const manager = createStudentManager();
+const studentDiscount = createDiscountCalculator(10);
+
+const eidDiscount = createDiscountCalculator(20);
 ```
 
-Student data সরাসরি access করা যাবে না।
+ব্যবহার:
 
 ```js
-manager.students
+console.log(studentDiscount(60000));
+// 54000
+
+console.log(eidDiscount(60000));
+// 48000
 ```
 
-Expected:
+### Questions
 
-```text
-undefined
-```
+1. `discount` কীভাবে inner function-এর কাছে available থাকছে?
+2. `createDiscountCalculator()` শেষ হওয়ার পরও `discount` কীভাবে পাওয়া যাচ্ছে?
+3. এখানে Closure কোথায় তৈরি হচ্ছে?
 
 ---
 
-# 🏆 Submission Requirements
+## Part 3 — Combine Everything
 
-প্রতিটি student-এর project-এ থাকতে হবে:
+এখন একটি function তৈরি করো:
 
-```text
-project/
-│
-├── index.html
-├── style.css
-└── script.js
+```js
+function createProduct(name, price, discount) {
+  // code
+}
 ```
 
-### Code Quality
+এটি এমন একটি object return করবে যার মধ্যে থাকবে:
 
-* Meaningful variable names ব্যবহার করতে হবে।
-* অপ্রয়োজনীয় repeated code লেখা যাবে না।
-* Functions ব্যবহার করতে হবে।
-* Console error থাকা যাবে না।
-* Responsive UI করার চেষ্টা করতে হবে।
-* Code properly format করতে হবে।
-* প্রয়োজন অনুযায়ী comments ব্যবহার করতে হবে।
+```js
+const laptop = createProduct(
+  "Laptop",
+  60000,
+  10
+);
+```
+
+এবং:
+
+```js
+laptop.getInfo();
+```
+
+দিলে product-এর name, original price, discount এবং final price দেখাবে।
+
+### Final Requirement
+
+`price` এবং `discount` সরাসরি পরিবর্তন করা যাবে না।
+
+অর্থাৎ:
+
+```js
+laptop.price
+```
+
+এবং
+
+```js
+laptop.discount
+```
+
+private রাখতে হবে।
+
+### Must Use
+
+এই final task-এ অবশ্যই ব্যবহার করতে হবে:
+
+* Closure
+* Private Variables
+* `this`
+* Object Methods
+* Higher-Order Function
+* Scope
+* Scope Chain
 
 ---
 
-# 🚀 Challenge Level
+# 🏆 Practice Goal
 
-| Task          | Level            |
-| ------------- | ---------------- |
-| Task 1        | 🟢 Beginner      |
-| Task 2        | 🟢 Beginner+     |
-| Task 3        | 🟡 Intermediate  |
-| Task 4        | 🟡 Intermediate  |
-| Task 5        | 🟡 Intermediate  |
-| Task 6        | 🟡 Intermediate  |
-| Task 7        | 🟠 Intermediate+ |
-| Task 8        | 🔴 Advanced      |
-| Task 9        | 🔴 Advanced      |
-| Task 10       | 🔴 Advanced      |
-| Final Project | 🔥 Advanced      |
+এই ৫টি task শেষ করার পর student যেন explain করতে পারে:
 
----
+* **Scope** → variable কোথা থেকে পাওয়া যায়
+* **Scope Chain** → JavaScript কীভাবে outer scope খুঁজে
+* **Hoisting & TDZ** → code execution-এর আগে declarations কীভাবে behave করে
+* **Execution Context & Call Stack** → function কীভাবে execute হয়
+* **`this`** → function কীভাবে তার context পায়
+* **`call/apply/bind`** → manually `this` set করা
+* **Closure** → function কীভাবে outer variables ধরে রাখে
+* **Private Variables** → Closure দিয়ে data hide করা
 
-# 🎯 Goal
-
-এই practice শেষ করার পর একজন student যেন JavaScript-এর **Scope, `this`, Closure, DOM এবং Events** শুধু theory হিসেবে না জেনে একটি real-world application-এর মধ্যে ব্যবহার করতে পারে।
+> **Challenge Rule:** আগে নিজে logic ও output predict করবে → তারপর code লিখবে → তারপর browser/Node.js-এ run করে verify করবে।
